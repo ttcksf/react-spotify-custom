@@ -6,13 +6,15 @@ import { FaGripfire, FaPlay } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
 import { IoLibrary } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
-import apiClient from "../../spotify";
+import { apiClient } from "../../spotify";
 
 const Sidebar = () => {
   const [image, setImage] = useState("https://source.unsplash.com/random");
   useEffect(() => {
     apiClient.get("me").then((res) => {
-      console.log(res.data.images[0].url);
+      if (res.data.images.length !== 0) {
+        setImage(res.data.images[0].url);
+      }
     });
   }, []);
   return (
